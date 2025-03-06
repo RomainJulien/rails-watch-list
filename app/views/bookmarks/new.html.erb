@@ -1,0 +1,17 @@
+<h1>Add Bookmark to <%= @list.name %></h1>
+
+<%= simple_form_for [@list, @bookmark], url: list_bookmarks_path(@list), local: true do |form| %>
+  <div class="form-input">
+    <%= form.input :movie_id, as: :select, collection: Movie.all, label: 'Select a movie', prompt: 'Choose a movie' %>
+  </div>
+
+  <div class="form-input">
+    <%= form.input :comment, as: :text, label: 'Add a comment', input_html: { rows: 3 } %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit 'Add Bookmark', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to List', list_path(@list), class: 'btn btn-secondary' %>
