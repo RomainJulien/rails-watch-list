@@ -1,17 +1,17 @@
-<h1>Add Bookmark to <%= @list.name %></h1>
+<h1>Ajouter un commentaire pour <%= @selected_movie&.title || 'un film' %></h1>
 
-<%= simple_form_for [@list, @bookmark], url: list_bookmarks_path(@list), local: true do |form| %>
+<%= simple_form_for [@list, @bookmark] do |f| %>
   <div class="form-input">
-    <%= form.input :movie_id, as: :select, collection: Movie.all, label: 'Select a movie', prompt: 'Choose a movie' %>
+    <%= f.input :movie_id, as: :select, collection: Movie.all, selected: @selected_movie&.id, label: 'Sélectionnez un film' %>
   </div>
 
   <div class="form-input">
-    <%= form.input :comment, as: :text, label: 'Add a comment', input_html: { rows: 3 } %>
+    <%= f.input :comment, as: :text, label: 'Ajoutez un commentaire', input_html: { rows: 3 } %>
   </div>
 
   <div class="form-actions">
-    <%= form.submit 'Add Bookmark', class: 'btn btn-primary' %>
+    <%= f.submit 'Ajouter le commentaire', class: 'btn btn-primary' %>
   </div>
 <% end %>
 
-<%= link_to 'Back to List', list_path(@list), class: 'btn btn-secondary' %>
+<%= link_to 'Retour à la liste', list_path(@list), class: 'btn btn-secondary' %>

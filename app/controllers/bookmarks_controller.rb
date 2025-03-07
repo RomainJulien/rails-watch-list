@@ -1,6 +1,6 @@
 class BookmarksController < ApplicationController
   def destroy
-    @bookmark = Bookmark.find(params[:id])
+    @bookmark = Bookmark.find(params[:list_id])
     @bookmark.destroy
     redirect_to list_path(@bookmark.list), notice: 'Le film a été supprimé de la liste.'
   end
@@ -8,16 +8,20 @@ class BookmarksController < ApplicationController
   def new
     @list = List.find(params[:list_id])
     @bookmark = Bookmark.new
+    @selected_movie = Movie.find(params[:movie_id]) if params[:movie_id].present?
   end
 
   def create
     @list = List.find(params[:list_id])
-    @bookmark = @list.bookmarks.new(bookmark_params)
+    @bookmark = Bookmark.new(bookmark_params)
+    @bookmark.list = @list
+
+    puts "Params reçus : #{params[:bookmark]}"  # Ajout du log
 
     if @bookmark.save
-      redirect_to @list, notice: 'Le film a été ajouté à la liste.'
+      redirect_to list_path(@list), notice: 'Le film a bien été ajouté à la liste.'
     else
-      redirect_to new_list_bookmark_path(@list), alert: 'Erreur lors de l\'ajout du film.'
+      render :new, status: :unprocessable_entity
     end
   end
 
