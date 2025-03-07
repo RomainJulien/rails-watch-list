@@ -2,7 +2,7 @@ class BookmarksController < ApplicationController
   def destroy
     @bookmark = Bookmark.find(params[:id])
     @bookmark.destroy
-    redirect_to @bookmark.list, notice: 'Le film a été supprimé de la liste.'
+    redirect_to list_path(@bookmark.list), notice: 'Le film a été supprimé de la liste.'
   end
 
   def new

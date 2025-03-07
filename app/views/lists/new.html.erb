@@ -1,4 +1,4 @@
-<h1>Create New List</h1>
+<h1>Créez une nouvelle liste</h1>
 <%= form_with model: @list, local: true do |form| %>
   <% if @list.errors.any? %>
     <div id="error_explanation">
@@ -12,12 +12,12 @@
   <% end %>
 
   <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.label :nom %>
+    <%= form.text_field :nom %>
   </div>
 
   <div>
-    <%= form.submit 'Create List' %>
+    <%= form.submit 'Créez une Liste' %>
   </div>
 <% end %>
-<%= link_to 'Back to Lists', lists_path %>
+<%= link_to 'Retour aux Listes', lists_path %>

@@ -8,16 +8,31 @@
         <%= bookmark.movie.title %>
         <%= image_tag bookmark.movie.poster_url, width: 100, alt: bookmark.movie.title if bookmark.movie.poster_url.present? %>
 
+        <% if bookmark.movie.overview.present? %>
+          <p><strong>Résumé :</strong> <%= bookmark.movie.overview %></p>
+        <% else %>
+          <p><em>Aucun résumé disponible.</em></p>
+        <% end %>
+
+        <% if bookmark.movie.rating.present? %>
+          <p><strong>Note :</strong> <%= bookmark.movie.rating.round(1) %>/10</p>
+        <% else %>
+          <p><em>Aucune note disponible.</em></p>
+        <% end %>
+
         <% if bookmark.comment.present? %>
           <p><strong>Commentaire :</strong> <%= bookmark.comment %></p>
         <% end %>
 
-        <%= link_to 'Supprimer', list_bookmark_path(bookmark.list, bookmark), method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %>
+        <%= link_to 'Supprimer', list_bookmark_path(bookmark),
+        data: { turbo_method: :delete, turbo_confirm: 'Êtes-vous sûr ?' } %>
       </li>
     <% end %>
   <% else %>
     <p>Aucun film ajouté à cette liste pour l'instant.</p>
   <% end %>
+
+   <%= turbo_stream_from @list %>
 </ul>
 
 <%= simple_form_for [@list, @bookmark] do |f| %>
